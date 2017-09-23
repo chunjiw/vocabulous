@@ -1,0 +1,9 @@
+credentials.py
+
+*.txt
+*.csv
+
+Takeout/
+.idea/
+__pycache__/
+
