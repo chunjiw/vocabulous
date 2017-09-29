@@ -2,7 +2,7 @@ This app allows user to create their own Ebbinghaus English vocabulary review bo
 
 Steps:
 1. Go to https://takeout.google.com/settings/takeout, download your search data
-2. Go to https://developer.oxforddictionaries.com/, get your own API id and key
+2. Go to https://developer.oxforddictionaries.com/, get your own API id and key. Note that the free plan allows 3k requests per month.
 3. Create a python file credentials.py with three lines:
     app_id = 'your_app_id'
     app_key = 'your_app_key'
