@@ -17,8 +17,8 @@ from datetime import datetime
 # import socket
 # import csv
 
-app_id = '64eec4ba'
-app_key = 'c4d3a63adc744126817df49ba8b35ce3'
+app_id = 'be715241'
+app_key = '22ed51bc4eee05dd14fbdd3308503159'
 gdata_directory = "/home/chunjiw/Dropbox/Apps/Google Download Your Data/"
 language = 'en'
 
@@ -93,6 +93,7 @@ def get_entries():
     # last update time
     textfile = open('usec.txt', 'r')
     usec_last = int(textfile.read())
+    usec_last = 0 # comment this line
     textfile.close()
 
     # collect words
