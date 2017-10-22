@@ -167,8 +167,8 @@ def vocabulous():
     # show a message box
     showInfo("Added %d new words. Now %d words in total." % (wordswritten, cardCount))
 
-# create a new menu item, "test"
-action = QAction("test", mw)
+# create a new menu item, "Vocabulous"
+action = QAction("Vocabulous", mw)
 # set it to call vocabulous when it's clicked
 action.triggered.connect(vocabulous)
 # and add it to the tools menu
