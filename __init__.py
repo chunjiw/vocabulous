@@ -128,7 +128,7 @@ def get_entries():
 
 def write_definitions(filename, wordslist, wordsdict):
     nw = 0  # count words written
-    with open(filename, 'w', newline='') as fw:
+    with open(filename, 'w', newline='', encoding='utf-8') as fw:
         for word in wordslist:
             success, entry, meaning = get_definitions(word)
             time.sleep(1.6)
