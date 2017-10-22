@@ -17,7 +17,8 @@ from datetime import datetime
 
 app_id = 'be715241'
 app_key = '22ed51bc4eee05dd14fbdd3308503159'
-gdata_directory = "/home/chunjiw/Dropbox/Apps/Google Download Your Data/"
+# gdata_directory = "/home/chunjiw/Dropbox/Apps/Google Download Your Data/"
+gdata_directory = "type/directory/of/your/downloaded/Google/Data/here"
 language = 'en'
 
 def get_definitions(item):
