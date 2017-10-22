@@ -1,20 +1,26 @@
+# import the main window object (mw) from aqt
+from aqt import mw
+# import the "show info" tool from utils.py
+from aqt.utils import showInfo
+# import all of the Qt GUI library
+from aqt.qt import *
+
 import os
 import json
 import re
 import zipfile
 import requests
 import time
-import credentials
+# import credentials
 from datetime import datetime
 
 # import socket
 # import csv
 
-app_id = credentials.app_id
-app_key = credentials.app_key
-gdata_directory = credentials.gdata_directory
+app_id = '64eec4ba'
+app_key = 'c4d3a63adc744126817df49ba8b35ce3'
+gdata_directory = "/home/chunjiw/Dropbox/Apps/Google Download Your Data/"
 language = 'en'
-
 
 def get_definitions(item):
 
@@ -69,13 +75,6 @@ def get_definitions(item):
 
 
 def get_entries():
-    # if socket.gethostname() == 'Cbuntu':
-    home = '/home'
-    # elif socket.gethostname() == 'PT-CNRL04':
-    #    home = 'C:/Users'
-
-    # # set working directory
-    # os.chdir(home + '/chunjiw/Dropbox/DefDict/')
 
     # unzip data
     filelist = os.listdir(gdata_directory)
@@ -138,7 +137,44 @@ def write_definitions(filename, wordslist, wordsdict):
     fw.close()
     print(str(nw) + ' words written')
 
+# We're going to add a menu item below. First we want to create a function to
+# be called when the menu item is activated.
 
-if __name__ == '__main__':
+def testFunction():
+
+  
     words_list, words_dict = get_entries()
-    write_definitions(str(datetime.now()), words_list, words_dict)
+    write_definitions("vocabulous.csv", words_list, words_dict)
+
+    # new component: import text file
+    from anki.importing import TextImporter
+    file = "vocabulous.csv"
+    # select deck
+    did = mw.col.decks.id("newname")
+    mw.col.decks.select(did)
+    # set note type for deck
+    m = mw.col.models.byName("Basic")
+    deck = mw.col.decks.get(did)
+    deck['mid'] = m['id']
+    mw.col.decks.save(deck)
+    # import into the collection
+    ti = TextImporter(mw.col, file)
+    ti.allowHTML = True
+    ti.importMode = 1
+    ti.initMapping()
+    ti.run()
+
+    # get the number of cards in the current collection, which is stored in
+    # the main window
+    cardCount = mw.col.cardCount()
+    # show a message box
+    showInfo("Card count: %d" % cardCount)
+
+# create a new menu item, "test"
+action = QAction("test", mw)
+# set it to call testFunction when it's clicked
+action.triggered.connect(testFunction)
+# and add it to the tools menu
+mw.form.menuTools.addAction(action)
+
+
