@@ -4,6 +4,8 @@ from aqt import mw
 from aqt.utils import showInfo
 # import all of the Qt GUI library
 from aqt.qt import *
+# import text importer
+from anki.importing import TextImporter
 
 import os
 import json
@@ -11,11 +13,7 @@ import re
 import zipfile
 import requests
 import time
-# import credentials
 from datetime import datetime
-
-# import socket
-# import csv
 
 app_id = 'be715241'
 app_key = '22ed51bc4eee05dd14fbdd3308503159'
@@ -137,21 +135,19 @@ def write_definitions(filename, wordslist, wordsdict):
                 nw += 1
     fw.close()
     print(str(nw) + ' words written')
+    return nw
 
 # We're going to add a menu item below. First we want to create a function to
 # be called when the menu item is activated.
 
-def testFunction():
+def vocabulous():
 
-  
     words_list, words_dict = get_entries()
-    write_definitions("vocabulous.csv", words_list, words_dict)
+    wordswritten = write_definitions("vocabulous.csv", words_list, words_dict)
 
-    # new component: import text file
-    from anki.importing import TextImporter
     file = "vocabulous.csv"
     # select deck
-    did = mw.col.decks.id("newname")
+    did = mw.col.decks.id("Default")
     mw.col.decks.select(did)
     # set note type for deck
     m = mw.col.models.byName("Basic")
@@ -169,12 +165,12 @@ def testFunction():
     # the main window
     cardCount = mw.col.cardCount()
     # show a message box
-    showInfo("Card count: %d" % cardCount)
+    showInfo("Added %d new words. Now %d words in total." % (wordswritten, cardCount))
 
 # create a new menu item, "test"
 action = QAction("test", mw)
-# set it to call testFunction when it's clicked
-action.triggered.connect(testFunction)
+# set it to call vocabulous when it's clicked
+action.triggered.connect(vocabulous)
 # and add it to the tools menu
 mw.form.menuTools.addAction(action)
 
