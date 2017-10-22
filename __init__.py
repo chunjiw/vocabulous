@@ -89,10 +89,12 @@ def get_entries():
     with open(recent_json, encoding='utf8') as f:
         searches = json.load(f)['event']
     # last update time
-    textfile = open('usec.txt', 'r')
-    usec_last = int(textfile.read())
-    usec_last = 0 # comment this line
-    textfile.close()
+    try:
+        textfile = open('usec.txt', 'r')
+        usec_last = int(textfile.read())
+        textfile.close()
+    except:
+        usec_last = 0
 
     # collect words
     wordslist = list()
